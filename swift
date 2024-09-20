@@ -48,3 +48,35 @@ print("Bike 2 model: \(bike2.model)")  // Output: Bike 2 model: Road Bike
 
 print(bike1.model)  // Output: Mountain Bike
 
+---------------------------
+class Person {
+    
+    // Initializer that runs when a new Person object is created
+    init() {
+        print("mennah")  // This will print "mennah" each time a new object is created
+    }
+    
+    // Method that prints a string
+    func ss() {
+        print("kjj")  // This will print "kjj" when the ss() method is called
+    }
+}
+
+// Loop that runs 3 times
+for _ in 1...3 {
+    let person = Person()  // A new Person object is created, so "mennah" is printed
+    
+    person.ss()  // The ss() method is called, so "kjj" is printed
+}
+
+/*
+Output:
+mennah  // First iteration, object created
+kjj     // First iteration, ss() method called
+
+mennah  // Second iteration, object created
+kjj     // Second iteration, ss() method called
+
+mennah  // Third iteration, object created
+kjj     // Third iteration, ss() method called
+*/
