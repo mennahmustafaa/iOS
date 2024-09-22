@@ -80,3 +80,29 @@ kjj     // Second iteration, ss() method called
 mennah  // Third iteration, object created
 kjj     // Third iteration, ss() method called
 */
+------------------------
+protocol Identifiable {
+    var id: String { get set }
+    func identify()
+}
+extension Identifiable {
+    func identify() {
+        print("My ID is \(id).")
+    }
+}
+-------
+protocol Identifiable {
+    var id: String { get set }
+    func identify()
+}
+extension Identifiable {
+    func identify() {
+        print("My ID is \(id).")
+    }
+}
+struct User: Identifiable {
+    var id: String
+}
+
+let twostraws = User(id: "twostraws")
+twostraws.identify()
