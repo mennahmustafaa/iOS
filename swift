@@ -106,3 +106,14 @@ struct User: Identifiable {
 
 let twostraws = User(id: "twostraws")
 twostraws.identify()
+----------------------------------------------
+var age: Int? = nil
+age = 23
+---
+var name: String? = "mennah"
+if let unwrapped = name {
+    print("\(unwrapped.count) letters")
+} else {
+    print("Missing name.")
+}
+------------------------------
