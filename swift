@@ -186,5 +186,26 @@ if let num = Int(str) {
 
 // The optional binding ensures that the program does not crash if the conversion fails.
 // Instead, it safely handles the nil case in the else block.
+---
+class User {
+    var username: String!  // Declare an implicitly unwrapped optional property
+
+    init(username: String?) {
+        // Assign a value to username, ensuring it won't be nil when used later
+        self.username = username ?? "DefaultUser"  // Provide a default value if nil
+    }
+
+    func greet() {
+        // Use the implicitly unwrapped optional directly
+        print("Hello, \(username)!")  // This is safe because we ensured it has a value in init
+    }
+}
+
+let user1 = User(username: "Mennah")  // Create a User with a specific username
+user1.greet()  // Output: "Hello, Mennah!"
+
+let user2 = User(username: nil)  // Create a User with nil username
+user2.greet()  // Output: "Hello, DefaultUser!"
+----
 
 
