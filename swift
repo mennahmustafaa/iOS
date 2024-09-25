@@ -117,3 +117,28 @@ if let unwrapped = name {
     print("Missing name.")
 }
 ------------------------------
+
+
+// Define a function 'greet' that accepts an optional String as a parameter
+func greet(_ name: String?) {
+    // Use 'guard let' to safely unwrap the optional 'name'.
+    // If 'name' is nil, the else block is executed, printing a message and returning from the function.
+    guard let unwrapped = name else {
+        // Print this message if 'name' is nil
+        print("You didn't provide a name!")
+        // Exit the function early if the optional is nil
+        return
+    }
+
+    // If 'name' is not nil, the unwrapped value (now a regular String) is used.
+    // Print a greeting message with the unwrapped value
+    print("Hello, \(unwrapped)!")
+}
+
+// Example calls to the 'greet' function:
+// Case where 'name' is nil, triggering the else block
+greet(nil)      // Output: "You didn't provide a name!"
+
+// Case where 'name' is not nil, successfully unwrapping and printing a greeting
+greet("Mennah") // Output: "Hello, Mennah!"
+
