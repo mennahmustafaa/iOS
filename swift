@@ -291,5 +291,49 @@ try: Use when you want to handle errors explicitly with do-catch.
 try?: Use when you're okay with converting errors to nil and handling success/failure as an optional.
 try!: Use only when you're 100% sure the function won't fail, as it will crash if an error is thrown.
 -------
+let str = "5"
+let num = Int(str)
+// Define a struct called 'Person' that represents a person with an 'id'.
+struct Person {
+    var id: String  // A stored property 'id' of type String to hold the person's ID.
+    
+    // Failable initializer that attempts to initialize a Person with an ID.
+    init?(id: String) {
+        // Check if the provided 'id' has exactly 9 characters.
+        if id.count == 9 {
+            self.id = id  // If the condition is met, assign the 'id' to the property.
+        } else {
+            // If the 'id' does not have exactly 9 characters, initialization fails, returning nil.
+            return nil
+        }
+    }
+}
+-----
+class Animal { }
 
+class Dog: Animal {
+    func bark() {
+        print("Woof!")
+    }
+}
 
+class Cat: Animal {
+    func meow() {
+        print("Meow!")
+    }
+}
+
+// Create an array of Animal objects, but some are actually Dogs and some are Cats.
+let animals: [Animal] = [Dog(), Cat(), Dog()]
+
+// We want to call specific methods like bark() and meow() on the objects in the array.
+// To do this, we need to typecast to the correct subclass.
+for animal in animals {
+    if let dog = animal as? Dog {  // Safe downcasting to Dog
+        dog.bark()  // If the cast succeeds, call the bark method.
+    } else if let cat = animal as? Cat {  // Safe downcasting to Cat
+        cat.meow()  // If the cast succeeds, call the meow method.
+    }
+}
+
+------
