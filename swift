@@ -234,7 +234,20 @@ let user = username(for: 15) ?? "Anonymous"  // ID 15 is not recognized, so defa
 print("User: \(user)")  // Output: "User: Anonymous"
 
 //The nil coalescing operator (??) is a concise way to handle optionals by providing a default value when the optional is nil. This allows for cleaner and safer code, avoiding the need for additional checks or unwrapping. This operator is particularly useful in scenarios where you want to ensure that a variable always has a value, whether from the optional or a specified default
--------
+--------------------------------------------t
+//op
+let names = ["John", "Paul", "George", "Ringo"]
 
- 
+// Using optional chaining to access the first element and uppercase it.
+let beatle = names.first?.uppercased()
+
+// Output: Optional("JOHN")
+print(beatle)
+-----
+
+let names: [String] = []
+
+let beatle = names.first?.uppercased()
+print(beatle)  //nil
+------
 
