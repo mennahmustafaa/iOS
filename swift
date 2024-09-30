@@ -250,4 +250,46 @@ let names: [String] = []
 let beatle = names.first?.uppercased()
 print(beatle)  //nil
 ------
+// Define an enum to represent the possible password error.
+enum PasswordError: Error {
+    case obvious  // Case for an "obvious" password (e.g., "password").
+}
+
+// Define a function that checks the password and can throw an error.
+func checkPassword(_ password: String) throws -> Bool {
+    // If the password is "password", throw an obvious password error.
+    if password == "password" {
+        throw PasswordError.obvious
+    }
+    // If no error is thrown, return true (password is considered valid).
+    return true
+}
+
+// Using do-try-catch to handle potential errors from the checkPassword function.
+do {
+    try checkPassword("password")  // Try checking the password.
+    print("That password is good!")  // If no error is thrown, print this message.
+} catch {
+    // If an error is thrown, print a message saying the password can't be used.
+    print("You can't use that password.")
+}
+
+// Using try? to convert the throwing function into an optional result.
+if let result = try? checkPassword("password") {
+    // If the function does not throw, it returns true wrapped in an optional.
+    print("Result was \(result)")
+} else {
+    // If an error is thrown, result is nil, and this block is executed.
+    print("D'oh.")
+}
+
+// Using try! to force unwrap the result, assuming no error will be thrown.
+try! checkPassword("sekrit")  // If this throws an error, the app will crash.
+print("OK!")  // If no error is thrown, this message will be printed.
+--
+try: Use when you want to handle errors explicitly with do-catch.
+try?: Use when you're okay with converting errors to nil and handling success/failure as an optional.
+try!: Use only when you're 100% sure the function won't fail, as it will crash if an error is thrown.
+-------
+
 
