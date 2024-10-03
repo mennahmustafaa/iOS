@@ -22,3 +22,83 @@ struct ContentView: View {
 }
 //Notice how that uses name rather than $name? That’s because we don’t want a two-way binding here – we want to read the value, yes, but we don’t want to write it back somehow, because that text view won’t change.
 So, when you see a dollar sign before a property name, remember that it creates a two-way binding: the value of the property is read, but also written.
+------------------------
+//
+//  ContentView.swift
+//  WeSplit
+//
+//  Created by Mennah on 30/09/2024.
+//
+
+import SwiftUI
+
+// Main content view for the WeSplit app
+struct ContentView: View {
+    // Array of student names to display in the picker
+    let stud = ["mennah", "mo", "maro"]
+    
+    // State property to hold the selected student's name
+    @State private var selctionstudent = "pick"
+    
+    var body: some View {
+        // NavigationStack to manage view hierarchy
+        NavigationStack {
+            // Form container to group the form elements
+            Form {
+                // Picker component for selecting a student from the array
+                Picker("Select your student", selection: $selctionstudent) {
+                    // Loop through the 'stud' array and display each student's name in the picker
+                    ForEach(stud, id: \.self) {
+                        // Display the student's name as a text element in the picker
+                        Text($0)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Preview for the ContentView to show the UI in Xcode's preview pane
+#Preview {
+    ContentView()
+}
+----------------
+//
+//  ContentView.swift
+//  WeSplit
+//
+//  Created by Mennah on 30/09/2024.
+//
+
+import SwiftUI
+
+// Main content view for the WeSplit app
+struct ContentView: View {
+    // Array of student names to display in the picker
+    let stud = ["mennah", "mo", "maro"]
+    
+    // State property to hold the selected student's name
+    @State private var selctionstudent = "pick"
+    
+    var body: some View {
+        // NavigationStack to manage view hierarchy
+        NavigationStack {
+            // Form container to group the form elements
+            Form {
+                // Picker component for selecting a student from the array
+                Picker("Select your student", selection: $selctionstudent) {
+                    // Loop through the 'stud' array and display each student's name in the picker
+                    ForEach(stud, id: \.self) {
+                        // Display the student's name  array as a text element in the picker
+                        Text($0)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Preview for the ContentView to show the UI in Xcode's preview pane
+#Preview {
+    ContentView()
+}
