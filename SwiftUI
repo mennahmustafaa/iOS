@@ -136,3 +136,83 @@ struct ContentView: View {
     ContentView()
 }
 --------------------------------------
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            Text("First")
+                .font(.largeTitle)
+                .padding()
+                .foregroundStyle(.white)
+                .background(.blue)
+                .clipShape(.capsule)
+
+            Text("Second")
+                .font(.largeTitle)
+                .padding()
+                .foregroundStyle(.white)
+                .background(.blue)
+                .clipShape(.capsule)
+        }
+    }
+}
+The more effiect 
+
+< Views as properties	 	Custom modifiers >
+View composition
+Paul Hudson     @twostraws    October 14th 2023
+
+
+SwiftUI lets us break complex views down into smaller views without incurring much if any performance impact. This means that we can split up one large view into multiple smaller views, and SwiftUI takes care of reassembling them for us.
+
+For example, in this view we have a particular way of styling text views – they have a large font, some padding, foreground and background colors, plus a capsule shape:
+
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            Text("First")
+                .font(.largeTitle)
+                .padding()
+                .foregroundStyle(.white)
+                .background(.blue)
+                .clipShape(.capsule)
+
+            Text("Second")
+                .font(.largeTitle)
+                .padding()
+                .foregroundStyle(.white)
+                .background(.blue)
+                .clipShape(.capsule)
+        }
+    }
+}
+Because those two text views are identical apart from their text, we can wrap them up in a new custom view, like this:
+
+struct CapsuleText: View {
+    var text: String
+
+    var body: some View {
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            .foregroundStyle(.white)
+            .background(.blue)
+            .clipShape(.capsule)
+    }
+}
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            CapsuleText(text: "First")
+            CapsuleText(text: "Second")
+        }
+    }
+}
+------
+customizing
+VStack(spacing: 10) {
+    CapsuleText(text: "First") 
+        .foregroundStyle(.white)  // Custom color
+
+    CapsuleText(text: "Second")
+        .foregroundStyle(.yellow) // Different color
+}
