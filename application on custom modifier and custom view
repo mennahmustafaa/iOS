@@ -1,0 +1,124 @@
+//
+//  ContentView.swift
+//  tst
+//
+//  Created by Mennah on 09/02/2025.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
+    @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var alertt = false
+    @State private var scoreTitle = ""
+    @State private var score = 0
+    @State private var alertMsg = ""
+    @State private var gameCuntr = 0
+    @State private var gameOver = false
+    
+    var body: some View {
+        ZStack{
+            Color.blue
+                .ignoresSafeArea()
+            VStack(spacing: 20){
+                VStack{
+                    Text("Tap the flag of")
+                        .modifier(tite())
+                        
+                    Text(countries[correctAnswer])
+                    ForEach(0..<3){number in
+                        Button {
+                            flagTapped(number)
+                            
+                            
+                        }label: {
+                            flagImage(name: countries[number])
+                        }
+                    }
+                    
+                    
+                }
+            }
+        }
+        .alert(scoreTitle, isPresented: $alertt){
+            Button("continue",action: askQuestion
+            )
+        }
+        message: {
+            Text("your score is \(score) \(alertMsg)")
+            
+        }
+        .alert("GAME OVER", isPresented: $gameOver){
+        Button("Play again", action: resetGame)
+            
+        }
+        message: {
+            Text("final score \(score)/8")
+        }
+            
+        
+    }
+    
+    func flagTapped(_ number: Int ) {
+        if number == correctAnswer
+        {
+            scoreTitle = "correct"
+            score = score + 1
+            alertMsg = ""
+        }
+        else{
+            scoreTitle = "wrong"
+            if score == 0{
+                score=0
+                alertMsg = "the flag is \(countries[number])"
+            }
+            else{
+                score = score - 1
+                alertMsg = "the flag is \(countries[number])"
+                
+                
+            }
+        }
+        alertt = true
+        gameCuntr += 1
+        if gameCuntr == 8{
+            gameOver = true
+        }
+        else{
+            alertt = true
+            }
+            
+        
+    }
+        func askQuestion(){
+            countries.shuffle()
+            correctAnswer = Int.random(in: 0...2)
+        }
+    func resetGame(){
+        gameCuntr = 0
+        score = 0
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+    }
+        
+    }
+struct flagImage: View {
+    var name : String
+    var body: some View {
+        Image(name)
+      
+    }
+}
+struct tite: ViewModifier{
+    func body (content: Content ) -> some View{
+        content
+            .font(.largeTitle)
+                        .foregroundStyle(.white)
+                       
+    }
+}
+
+#Preview {
+    ContentView()
+}
