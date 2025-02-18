@@ -1,0 +1,137 @@
+//Conditional modifiers
+struct ContentView: View {
+    @State private var useRedText = false
+
+    var body: some View {
+        Button("Hello World") {
+            // flip the Boolean between true and false
+            useRedText.toggle()            
+        }
+        .foregroundStyle(useRedText ? .red : .blue)
+    }
+}
+//or
+var body: some View {
+    if useRedText {
+        Button("Hello World") {
+            useRedText.toggle()
+        }
+        .foregroundStyle(.red)
+    } else {
+        Button("Hello World") {
+            useRedText.toggle()
+        }
+        .foregroundStyle(.blue)
+    }
+}
+-----------------------------------------------
+//Views as properties
+For example, we could create two text views like this as properties, then use them inside a VStack:
+
+struct ContentView: View {
+    let motto1 = Text("Draco dormiens")
+    let motto2 = Text("nunquam titillandus")
+
+    var body: some View {
+        VStack {
+            motto1
+            motto2
+        }
+    }
+}
+--
+//You can even apply modifiers directly to those properties as they are being used, like this:
+
+VStack {
+    motto1
+        .foregroundStyle(.red)
+    motto2
+        .foregroundStyle(.blue)
+}
+----------------------
+Key Notes on Using Properties for Complex View Hierarchies in SwiftUI:
+	1. Using Properties to Simplify Views:
+		○ You can define views as properties of your main view to make the code clearer and reduce repetition. For example: 
+struct ContentView: View {
+    let motto1 = Text("Draco dormiens")
+    let motto2 = Text("nunquam titillandus")
+
+var body: some View {
+        VStack {
+            motto1
+            motto2
+        }
+    }
+}
+		○ This approach keeps the body property cleaner and more readable, allowing you to use pre-defined views (like motto1 and motto2) within your layout.
+	2. Applying Modifiers to Properties:
+		○ You can apply modifiers directly to properties when they are used. For example, you can style the text in VStack: 
+VStack {
+    motto1.foregroundStyle(.red)
+    motto2.foregroundStyle(.blue)
+}
+		○ This allows for easy customization while keeping the view logic separate.
+	3. Advantages of Using Properties:
+		○ Using properties helps avoid repetition and keeps the code clean.
+		○ It simplifies complex view hierarchies by breaking them down into smaller, reusable components.
+		○ However, it is essential to avoid making views too complex in the properties, as this can lead to less maintainable code.
+	4. Creating Computed Properties for Views:
+		○ Unlike stored properties, you can create computed properties that return views. For example: 
+var motto1: some View {
+    Text("Draco dormiens")
+}
+		○ This approach allows you to break your complex views into smaller chunks, but be mindful that Swift does not automatically apply @ViewBuilder to computed properties.
+	5. Handling Multiple Views in Computed Properties:
+		○ Since Swift doesn't automatically wrap multiple views in a container like @ViewBuilder does for body, you have a few options:
+			§ Using a Stack (e.g., VStack):
+var spells: some View {
+    VStack {
+        Text("Lumos")
+        Text("Obliviate")
+    }
+}
+			§ Using a Group:
+var spells: some View {
+    Group {
+        Text("Lumos")
+        Text("Obliviate")
+    }
+}
+			§ Adding @ViewBuilder Yourself:
+@ViewBuilder var spells: some View {
+    Text("Lumos")
+    Text("Obliviate")
+}
+	6. @ViewBuilder and Best Practices:
+		○ @ViewBuilder is recommended for splitting up multiple views within a computed property as it mimics the behavior of the body property.
+		○ However, avoid cramming too much functionality into your properties, as it could indicate that your views are becoming too complex and may need further breakdown into smaller components.
+Summary:
+	• Using properties for views can improve code clarity and reduce repetition.
+	• For complex layouts, break up views into smaller, reusable components using computed properties or @ViewBuilder.
+SwiftUI provides options like VStack, Group, and @ViewBuilder to manage multiple views in a property, but be cautious about over-complicating your properties. Simplify your views when necessary for better maintainability.
+--------------------
+// custom view
+import SwiftUI
+
+struct ContentView: View {
+    
+    var body: some View {
+        Text("mm")
+        capsule(text: "mariem")
+        capsule(text: "mennah")
+        
+    }
+}
+struct capsule: View {
+    var text : String
+    var body: some View {
+        Text(text)
+            .background(.blue)
+            .clipShape(.capsule)
+        
+    }
+}
+
+#Preview {
+    ContentView()
+}
